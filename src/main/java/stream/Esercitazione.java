@@ -62,5 +62,13 @@ public class Esercitazione {
         System.out.println("-----------------------------------------------------------");
         Map<String, Double> m5= prodotti.stream().collect(groupingBy(Product::getCategory, Collectors.summingDouble(Product::getPrice)));
         System.out.println(m5);
+
+        System.out.println("-----------------------------------------------------------");
+
+        String prodottiStringati = prodotti.stream().map(product -> product.getName() + "@" + product.getCategory() + "@" + product.getPrice()).collect(Collectors.joining("#"));
+
+        System.out.println(prodottiStringati);
+
+
     }
 }
