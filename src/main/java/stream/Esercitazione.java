@@ -1,7 +1,12 @@
 package stream;
 
 import java.time.LocalDate;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class Esercitazione {
     public static void main(String[] args) {
@@ -33,8 +38,29 @@ public class Esercitazione {
         o3.setCustomer(c3);
         o3.setProdotti(List.of(p7,p8));
 
+        List<Order> ordini = List.of(o1, o2, o3);
 
-        Map<>
 
+        Map<Customer, List<Order>> m1= ordini.stream().collect(Collectors.groupingBy(Order::getCustomer));
+        System.out.println(m1);
+
+        System.out.println("-----------------------------------------------------------");
+
+        Map<Customer,Double> m2= ordini.stream().collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(Order->Order.getProdotti().stream().mapToDouble(Product::getPrice).sum())));
+        System.out.println(m2);
+
+        System.out.println("-----------------------------------------------------------");
+
+        DoubleSummaryStatistics m3= prodotti.stream().collect(Collectors.summarizingDouble(Product::getPrice));
+        System.out.println(m3.getMax());
+
+        System.out.println("-----------------------------------------------------------");
+        Double m4= ordini.stream().flatMap(order -> order.getProdotti().stream()).mapToDouble(prodotto-> prodotto.getPrice()).average().orElse(0.0);
+        System.out.println("Media prezzi prodotti: " + m4);
+
+
+        System.out.println("-----------------------------------------------------------");
+        Map<String, Double> m5= prodotti.stream().collect(groupingBy(Product::getCategory, Collectors.summingDouble(Product::getPrice)));
+        System.out.println(m5);
     }
 }
