@@ -1,5 +1,9 @@
 package stream;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
@@ -68,6 +72,23 @@ public class Esercitazione {
         String prodottiStringati = prodotti.stream().map(product -> product.getName() + "@" + product.getCategory() + "@" + product.getPrice()).collect(Collectors.joining("#"));
 
         System.out.println(prodottiStringati);
+
+        File file= new File("esercitazione.txt");
+        try {
+
+            FileUtils.writeStringToFile(file, prodottiStringati, "UTF-8", true);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+
+            String stringaDaFile = FileUtils.readFileToString(file, "UTF-8");
+            System.out.println(stringaDaFile);
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
 
     }
