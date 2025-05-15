@@ -1,3 +1,5 @@
+package stream;
+
 public class Customer {
     private Long id;
     private String name;

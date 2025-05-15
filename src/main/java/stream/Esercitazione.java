@@ -1,3 +1,5 @@
+package stream;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,5 +32,9 @@ public class Esercitazione {
 
         o3.setCustomer(c3);
         o3.setProdotti(List.of(p7,p8));
+
+
+        Map<>
+
     }
 }
