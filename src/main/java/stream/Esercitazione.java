@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +56,7 @@ public class Esercitazione {
 
         System.out.println("-----------------------------------------------------------");
 
-        DoubleSummaryStatistics m3= prodotti.stream().collect(Collectors.summarizingDouble(Product::getPrice));
-        System.out.println(m3.getMax());
+        List<Product> m3= prodotti.stream().filter(product -> product.getPrice()== prodotti.stream().mapToDouble(Product::getPrice).max().getAsDouble()).toList();
 
         System.out.println("-----------------------------------------------------------");
         Double m4= ordini.stream().flatMap(order -> order.getProdotti().stream()).mapToDouble(prodotto-> prodotto.getPrice()).average().orElse(0.0);
@@ -77,6 +77,7 @@ public class Esercitazione {
         try {
 
             FileUtils.writeStringToFile(file, prodottiStringati, "UTF-8", true);
+            
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -92,4 +93,6 @@ public class Esercitazione {
 
 
     }
+
+
 }
